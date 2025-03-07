@@ -50,6 +50,19 @@
                 </tbody>
             </table>
 
+            <!-- Tampilkan dinamis -->
+            <!-- Dropdown untuk memilih jumlah data per halaman -->
+            <div class="flex items-center space-x-2">
+                <label for="numpage">Tampilkan</label>
+                <select wire:model="numpage" id="numpage" class="border px-2 py-1 rounded">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span>data per halaman</span>
+            </div>
+
             <!-- Pagination -->
             <div class="mt-4">
                 {{ $posts->links() }}

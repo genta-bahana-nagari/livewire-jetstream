@@ -13,16 +13,27 @@ class Posts extends Component
     public $title, $body, $post_id;
     public $isOpen = false;
     public $numpage = 10;
+    
 
     protected $rules = [
         'title' => 'required',
         'body' => 'required'
     ];
 
+    public function updatingNumpage()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
+        $posts = Post::latest()->paginate($this->numpage);
+
         return view('livewire.posts', [
-            'posts' => Post::latest()->paginate($this->numpage)
+            'posts' => $posts,
+            'total' => $posts->total(),
+            'from' => $posts->firstItem() ?? 0,
+            'to' => $posts->lastItem() ?? 0
         ]);
     }
 
