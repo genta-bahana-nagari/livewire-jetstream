@@ -10,9 +10,10 @@ use Livewire\WithFileUploads;
 class Products extends Component
 {
     use WithFileUploads;
-    public $products, $name, $brand, $image, $product_id;
-    public $isOpen = 0;
-  
+    public $name, $brand, $image, $product_id;
+    public $isOpen = false;
+    public $numpage = 10;
+    public $search;
     /**
      * The attributes that are mass assignable.
      *
@@ -20,8 +21,16 @@ class Products extends Component
      */
     public function render()
     {
-        $this->products = Product::all();
-        return view('livewire.products');
+        $query = Product::latest();
+
+        if (!empty($this->search)) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('brand', 'like', '%' . $this->search . '%');
+        }
+
+        $products = $query->paginate($this->numpage);
+
+        return view('livewire.products', compact('products'));
     }
   
     /**

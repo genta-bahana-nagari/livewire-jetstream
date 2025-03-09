@@ -46,7 +46,7 @@
             @endif
 
             <!-- Tabel Data -->
-            <table class="table-fixed w-full">
+            <table class="w-full">
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2 w-20">No.</th>
@@ -58,10 +58,10 @@
                 <tbody>
                     @foreach($posts as $index => $post)
                         <tr>
-                            <td class="border px-4 py-2">{{ ($posts->currentPage() - 1) * $posts->perPage() + $loop->iteration }}</td>
-                            <td class="border px-4 py-2">{{ $post->title }}</td>
-                            <td class="border px-4 py-2">{{ $post->body }}</td>
-                            <td class="border px-4 py-2">
+                            <td class="w-16 max-h-16 object-cover rounded">{{ ($posts->currentPage() - 1) * $posts->perPage() + $loop->iteration }}</td>
+                            <td class="border px-4 py-2 align-middle">{{ $post->title }}</td>
+                            <td class="border px-4 py-2 align-middle">{{ $post->body }}</td>
+                            <td class="border px-4 py-2 flex align-middle items-center justify-between">
                                 <button wire:click="edit({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
                                 <button wire:click="delete({{ $post->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
                             </td>
