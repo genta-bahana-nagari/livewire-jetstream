@@ -16,9 +16,29 @@
             @endif
 
             <!-- Tombol Tambah -->
-            <button wire:click="create()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">
-                Create New Post
-            </button>
+             <div class="flex items-center justify-between px-4">
+                 <button wire:click="create()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">
+                     Create New Post
+                 </button>
+             </div>
+
+            <!-- Coba Filter Pagination dan Search-->
+            <div class="flex items-center justify-between p-4">
+                <div class="flex items-center space-x-2">
+                    <label for="rows-per-page" class="font-medium">Rows per Page: </label>
+                    <select wire:model.live="numpage" id="rows-per-page" class="w-20 px-2 py-1 border rounded">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <label for="search" class="font-medium">Search:</label>
+                    <input wire:model.live="search" id="search" type="text" placeholder="Type to search" class="px-2 py-1 border rounded"/>
+                </div>
+            </div>
 
             <!-- Form Tambah/Edit -->
             @if($isOpen)
@@ -49,19 +69,6 @@
                     @endforeach
                 </tbody>
             </table>
-
-            <!-- Tampilkan dinamis -->
-            <!-- Dropdown untuk memilih jumlah data per halaman -->
-            <div class="flex items-center space-x-2">
-                <label for="numpage">Tampilkan</label>
-                <select wire:model="numpage" id="numpage" class="border px-2 py-1 rounded">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-                <span>data per halaman</span>
-            </div>
 
             <!-- Pagination -->
             <div class="mt-4">

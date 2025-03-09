@@ -14,27 +14,31 @@ class Posts extends Component
     public $isOpen = false;
     public $numpage = 10;
     
-
     protected $rules = [
         'title' => 'required',
         'body' => 'required'
     ];
 
-    public function updatingNumpage()
-    {
-        $this->resetPage();
-    }
+    public $search;
 
     public function render()
     {
-        $posts = Post::latest()->paginate($this->numpage);
+        // Cara pagination dinamis pertama (buat sendiri) = 
+        // $posts = Post::latest()->paginate($this->numpage);
+        // return view('livewire.posts', compact('posts'));
 
-        return view('livewire.posts', [
-            'posts' => $posts,
-            'total' => $posts->total(),
-            'from' => $posts->firstItem() ?? 0,
-            'to' => $posts->lastItem() ?? 0
-        ]);
+        // Cara pagination dinamis Pak Ugik (inlcude search) = 
+        return view('livewire.posts',
+            [
+                'posts'=>$this->search === null ?
+                Post::latest()->paginate($this->numpage) :
+                Post::latest()->where('title','like','%'.$this->search.'%')
+                            ->orwhere('body','like','%'.$this->search.'%')
+                            ->paginate($this->numpage)
+            ]
+        );
+
+
     }
 
     public function create()
